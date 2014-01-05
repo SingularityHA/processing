@@ -17,6 +17,17 @@
 import mosquitto
 import json
 import time
+import os
+
+for root, dirs, files in os.walk(os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))):
+                for dir in dirs:
+                        if dir != "processing":
+                                actuator_source = []
+                                if os.path.isfile(os.path.join(root,dir,"actuators.py")):
+                                        execfile(os.path.join(root,dir,"actuators.py"))
+                                        actuator = actuator = actuator_source
+                dirs[:] = []
+
 
 broker = "127.0.0.1"
 port = 1883

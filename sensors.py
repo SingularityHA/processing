@@ -1,4 +1,3 @@
-
 # Singularity
 # Copyright (C) 2014 Internet by Design Ltd
 #
@@ -29,15 +28,14 @@ def on_connect(rc):
 
 def on_message(msg):
 	inbound = json.loads(msg.payload)
-	medium = inbound[0]
-	content = inbound[1]
+	device = inbound[0]
 
-	if str(medium) == "433mhz":
-		print str(content)
-		sensors[str(content)]()
-	else:
-		print "Medium " + medium + " not implemented!"
+	try:
+		content = inbound[1]
+	except IndexError:
+		pass
 
+	print str(device)
 
 def main():
 	try:
