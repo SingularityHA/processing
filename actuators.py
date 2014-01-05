@@ -18,6 +18,9 @@ import mosquitto
 import json
 import time
 import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir)) + "/../lib")
+from config import config
 
 for root, dirs, files in os.walk(os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))):
                 for dir in dirs:
@@ -28,9 +31,9 @@ for root, dirs, files in os.walk(os.path.abspath(os.path.join(os.path.dirname(os
                                         actuator = actuator = actuator_source
                 dirs[:] = []
 
-
-broker = "127.0.0.1"
-port = 1883
+print actuator
+broker = str(config.get("mqtt", "host"))
+port = int(config.get("mqtt", "port"))
 
 mqttc = mosquitto.Mosquitto("singularity-processing-actuators")
 

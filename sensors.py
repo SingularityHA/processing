@@ -17,9 +17,13 @@
 import mosquitto
 import json
 import time
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir)) + "/../lib")
+from config import config
 
-broker = "127.0.0.1"
-port = 1883
+broker = str(config.get("mqtt", "host"))
+port = int(config.get("mqtt", "port"))
 
 mqttc = mosquitto.Mosquitto("singularity-processing-sensors")
 
