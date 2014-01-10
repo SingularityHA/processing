@@ -21,6 +21,9 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir)) + "/../lib")
 from config import config
+import logging
+
+logger = logging.getLogger(__name__)
 
 broker = str(config.get("mqtt", "host"))
 port = int(config.get("mqtt", "port"))
@@ -28,7 +31,7 @@ port = int(config.get("mqtt", "port"))
 mqttc = mosquitto.Mosquitto("singularity-processing-sensors")
 
 def on_connect(rc):
-	print "SENSORS Connected to MQTT"
+	logger.debug("SENSORS Connected to MQTT")
 
 def on_message(msg):
 	inbound = json.loads(msg.payload)

@@ -18,9 +18,12 @@ import sensors
 import actuators
 from multiprocessing import Process
 import time
+import logging	
+
+logger = logging.getLogger("processing")
 
 def signal_handler(signal, frame):
-	print "Got CTL+C"
+	logger.info("Got CTL+C")
 	time.sleep(1)
         for job in jobs:
         	job.terminate()

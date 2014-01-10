@@ -21,6 +21,9 @@ import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir)) + "/../lib")
 from config import config
+import logging
+
+logger = logging.getLogger(__name__)
 
 for root, dirs, files in os.walk(os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))):
                 for dir in dirs:
@@ -31,14 +34,13 @@ for root, dirs, files in os.walk(os.path.abspath(os.path.join(os.path.dirname(os
                                         actuator = actuator = actuator_source
                 dirs[:] = []
 
-print actuator
 broker = str(config.get("mqtt", "host"))
 port = int(config.get("mqtt", "port"))
 
 mqttc = mosquitto.Mosquitto("singularity-processing-actuators")
 
 def on_connect(rc):
-	print "ACTUARTORS Connected to MQTT"
+	logger.debug("ACTUARTORS Connected to MQTT")
 
 #runs when a MQTT message arrives
 def on_message(msg):
@@ -62,7 +64,7 @@ def on_message(msg):
 def main():
 
 	try:	
-		print "actuators"
+		logger.info("Starting...")
 		#start up the MQTT connection
 		mqttc.on_message = on_message
 		mqttc.on_connect = on_connect
