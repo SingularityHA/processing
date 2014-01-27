@@ -31,7 +31,7 @@ for root, dirs, files in os.walk(os.path.abspath(os.path.join(os.path.dirname(os
                                 actuator_source = []
                                 if os.path.isfile(os.path.join(root,dir,"actuators.py")):
                                         execfile(os.path.join(root,dir,"actuators.py"))
-                                        actuator = actuator = actuator_source
+                                        actuator = actuator + actuator_source
                 dirs[:] = []
 
 broker = str(config.get("mqtt", "host"))
