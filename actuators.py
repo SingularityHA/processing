@@ -25,14 +25,11 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-for root, dirs, files in os.walk(os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))):
-                for dir in dirs:
-                        if dir != "processing":
-                                actuator_source = []
-                                if os.path.isfile(os.path.join(root,dir,"actuators.py")):
-                                        execfile(os.path.join(root,dir,"actuators.py"))
-                                        actuator = actuator + actuator_source
-                dirs[:] = []
+actuator = {}
+actuator_source = {}
+for filename in os.listdir (os.path.abspath(os.path.dirname(os.path.realpath(__file__))) + "/actuatorfiles/"):
+	execfile(os.path.join(os.path.abspath(os.path.dirname(os.path.realpath(__file__))) + "/actuatorfiles/",filename))
+	actuator = dict(actuator.items() + actuator_source.items())
 
 broker = str(config.get("mqtt", "host"))
 port = int(config.get("mqtt", "port"))

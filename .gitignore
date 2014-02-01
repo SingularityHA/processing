@@ -33,3 +33,8 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+
+# SingularityHA Stuff
+actuatorfiles/*
+!actuatorfiles/README
+id.txt
