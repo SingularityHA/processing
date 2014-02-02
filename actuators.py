@@ -28,8 +28,9 @@ logger = logging.getLogger(__name__)
 actuator = {}
 actuator_source = {}
 for filename in os.listdir (os.path.abspath(os.path.dirname(os.path.realpath(__file__))) + "/actuatorfiles/"):
-	execfile(os.path.join(os.path.abspath(os.path.dirname(os.path.realpath(__file__))) + "/actuatorfiles/",filename))
-	actuator = dict(actuator.items() + actuator_source.items())
+	if filename != "README":
+		execfile(os.path.join(os.path.abspath(os.path.dirname(os.path.realpath(__file__))) + "/actuatorfiles/",filename))
+		actuator = dict(actuator.items() + actuator_source.items())
 
 broker = str(config.get("mqtt", "host"))
 port = int(config.get("mqtt", "port"))
