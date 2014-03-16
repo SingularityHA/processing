@@ -23,7 +23,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__
 from config import config
 import logging
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("processing.sensors")
 
 broker = str(config.get("mqtt", "host"))
 port = int(config.get("mqtt", "port"))
@@ -34,6 +34,7 @@ def on_connect(rc):
 	logger.debug("SENSORS Connected to MQTT")
 
 def on_message(msg):
+	print msg
 	inbound = json.loads(msg.payload)
 	device = inbound[0]
 
@@ -42,7 +43,11 @@ def on_message(msg):
 	except IndexError:
 		pass
 
-	print str(device)
+	logging.debug(str(device))
+	try:
+  	    logging.debug(str(content))
+	except:
+	    pass
 
 def main():
 	try:

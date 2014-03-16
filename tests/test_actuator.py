@@ -23,7 +23,6 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir)) + "/../../lib")
 from config import config
 
-serialdev = str(config.get("rfm_ninjablock", "serialdev"))
 broker = str(config.get("mqtt", "host"))
 port = int(config.get("mqtt", "port"))
 
@@ -55,8 +54,8 @@ mqttc.on_publish = on_publish
 mqttc.connect(broker, port, 60, True)
 
 while mqttc.loop() == 0:
-	mqttc.publish("actuators", json.dumps(["NBswitch", "DriveLight", "on"]))	
+	mqttc.publish("actuators", json.dumps(["limitlessLED", "DeskLight", "brightness", "5"]))	
 	time.sleep(1)
-	mqttc.publish("actuators", json.dumps(["NBswitch", "DriveLight", "off"]))	
+	mqttc.publish("actuators", json.dumps(["limitlessLED", "DeskLight", "on"]))	
 	break
 	pass 
