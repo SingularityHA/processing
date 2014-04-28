@@ -33,9 +33,6 @@ port = int(config.get("mqtt", "port"))
 mqttc = mosquitto.Mosquitto("singularity-processing-actuators")
 
 
-def on_connect(rc):
-    logger.debug("ACTUARTORS Connected to MQTT")
-
 #runs when a MQTT message arrives
 def on_message(msg):
     #unpack json payload
@@ -61,7 +58,6 @@ def main():
         logger.info("Starting...")
         #start up the MQTT connection
         mqttc.on_message = on_message
-        mqttc.on_connect = on_connect
         mqttc.connect(broker, port, 60, False)
         mqttc.subscribe("actuators", 0)
 

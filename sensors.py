@@ -23,9 +23,6 @@ port = int(config.get("mqtt", "port"))
 mqttc = mosquitto.Mosquitto("singularity-processing-sensors")
 
 
-def on_connect(rc):
-    logger.debug("SENSORS Connected to MQTT")
-
 
 def on_message(msg):
     inbound = json.loads(msg.payload)
@@ -39,17 +36,16 @@ def on_message(msg):
     """ Do nothing because we don't have rules yet """
     print str(device)
 
-	logging.debug(str(device))
-	try:
-  	    logging.debug(str(content))
-	except:
-	    pass
+    logging.debug(str(device))
+    try:
+        logging.debug(str(content))
+    except:
+        pass
 
 def main():
     try:
 
         mqttc.on_message = on_message
-        mqttc.on_connect = on_connect
 
         mqttc.connect(broker, port, 60, False)
 
