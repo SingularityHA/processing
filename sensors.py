@@ -24,7 +24,7 @@ mqttc = mosquitto.Mosquitto("singularity-processing-sensors")
 
 
 
-def on_message(msg):
+def on_message(mosq, obj, msg):
     inbound = json.loads(msg.payload)
     device = inbound[0]
 

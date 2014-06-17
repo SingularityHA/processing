@@ -34,7 +34,7 @@ mqttc = mosquitto.Mosquitto("singularity-processing-actuators")
 
 
 #runs when a MQTT message arrives
-def on_message(msg):
+def on_message(mosq, obj, msg):
     #unpack json payload
     inbound = json.loads(msg.payload)
 

@@ -23,7 +23,7 @@ r = json.loads(requests.get("http://" + config.get("general", "confighost") + "/
 
 modules = {}
 for module in r['objects']:
-    if str(module['actuatorfile']) != "None":
+    if len(str(module['actuatorfile'])) > 7:
         response = urllib2.urlopen(module['actuatorfile'])
         html = response.read()
         target = open(os.path.dirname(os.path.realpath(__file__)) + "/actuatorfiles/" + module['name'] + ".py", 'w')
